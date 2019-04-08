@@ -2,6 +2,11 @@
 
 require_once( get_stylesheet_directory() . '/includes/scc-child-nav-menus-class.php');
 require_once( get_stylesheet_directory() . '/includes/acf/scc-child-acf-class.php');
+require_once( get_stylesheet_directory() . '/api/scc-child-rest-controller-class.php');
+
+if ( class_exists( 'SCC_REST_Controller' ) ) {
+  new SCC_REST_Controller();
+}
 
 /**
  * Child Theme Nav Menus
