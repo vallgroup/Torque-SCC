@@ -22,6 +22,16 @@ require_once( get_stylesheet_directory() . '/includes/acf/scc-child-acf-class.ph
 
 
 /**
+ * Configure page post type
+ */
+add_action( 'init', function() {
+  remove_post_type_support( 'page',  'editor' );
+  remove_post_type_support( 'page',  'excerpt' );
+  remove_post_type_support( 'page',  'thumbnail' );
+  remove_post_type_support( 'page',  'comments' );
+});
+
+/**
  * Admin settings
  */
 
