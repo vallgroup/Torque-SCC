@@ -31,6 +31,13 @@ add_action( 'init', function() {
   remove_post_type_support( 'page',  'comments' );
 });
 
+
+// add svg mime type
+add_filter('upload_mimes', function($mimes) {
+  $mimes['svg'] = 'image/svg+xml';
+  return $mimes;
+});
+
 /**
  * Admin settings
  */
