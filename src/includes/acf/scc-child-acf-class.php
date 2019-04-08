@@ -9,7 +9,7 @@ class SCC_ACF {
     add_action('acf/init', array( $this, 'acf_init' ) );
 
     // hide acf in admin - client doesnt need to see this
-    add_filter('acf/settings/show_admin', '__return_false');
+    // add_filter('acf/settings/show_admin', '__return_false');
 
     // add acf fields to wp search
     if ( class_exists( 'Torque_ACF_Search' ) ) {
@@ -19,7 +19,7 @@ class SCC_ACF {
 
   public function acf_admin_init() {
     // hide options page
-    remove_menu_page('acf-options');
+    // remove_menu_page('acf-options');
   }
 
   public function add_fields_to_search( $fields ) {
@@ -194,7 +194,7 @@ class SCC_ACF {
       			),
       			'default_value' => '',
       			'tabs' => 'all',
-      			'toolbar' => 'basic',
+      			'toolbar' => 'full',
       			'media_upload' => 0,
       			'delay' => 0,
       		),
@@ -283,7 +283,7 @@ class SCC_ACF {
       						'id' => '',
       					),
       					'default_value' => 1,
-      					'min' => 2,
+      					'min' => 1,
       					'max' => 2,
       					'step' => 1,
       					'prepend' => '',
@@ -356,7 +356,7 @@ class SCC_ACF {
       			'min' => 0,
       			'max' => 0,
       			'layout' => 'row',
-      			'button_label' => '',
+      			'button_label' => 'Add Tab',
       			'sub_fields' => array(
       				array(
       					'key' => 'field_5cabbb2dcba61',
@@ -392,7 +392,7 @@ class SCC_ACF {
       					),
       					'default_value' => '',
       					'tabs' => 'all',
-      					'toolbar' => 'basic',
+      					'toolbar' => 'full',
       					'media_upload' => 0,
       					'delay' => 0,
       				),
@@ -412,7 +412,7 @@ class SCC_ACF {
       					'collapsed' => 'field_5cabb95e3ea83',
       					'min' => 0,
       					'max' => 0,
-      					'layout' => 'table',
+      					'layout' => 'row',
       					'button_label' => 'Add Image',
       					'sub_fields' => array(
       						array(
@@ -542,6 +542,158 @@ class SCC_ACF {
       	'active' => 1,
       	'description' => '',
       ));
+
+      acf_add_local_field_group(array(
+      	'key' => 'group_5cabce70899c0',
+      	'title' => 'Options',
+      	'fields' => array(
+      		array(
+      			'key' => 'field_5cabce820f01a',
+      			'label' => 'Logos',
+      			'name' => 'logos',
+      			'type' => 'group',
+      			'instructions' => '',
+      			'required' => 0,
+      			'conditional_logic' => 0,
+      			'wrapper' => array(
+      				'width' => '',
+      				'class' => '',
+      				'id' => '',
+      			),
+      			'layout' => 'table',
+      			'sub_fields' => array(
+      				array(
+      					'key' => 'field_5cabcea60f01b',
+      					'label' => 'GlenStar Logos',
+      					'name' => 'glenstar_logos',
+      					'type' => 'group',
+      					'instructions' => '',
+      					'required' => 0,
+      					'conditional_logic' => 0,
+      					'wrapper' => array(
+      						'width' => '',
+      						'class' => '',
+      						'id' => '',
+      					),
+      					'layout' => 'block',
+      					'sub_fields' => array(
+      						array(
+      							'key' => 'field_5cabceb70f01c',
+      							'label' => 'Icon',
+      							'name' => 'icon',
+      							'type' => 'image',
+      							'instructions' => '',
+      							'required' => 1,
+      							'conditional_logic' => 0,
+      							'wrapper' => array(
+      								'width' => '',
+      								'class' => '',
+      								'id' => '',
+      							),
+      							'return_format' => 'url',
+      							'preview_size' => 'thumbnail',
+      							'library' => 'all',
+      							'min_width' => '',
+      							'min_height' => '',
+      							'min_size' => '',
+      							'max_width' => '',
+      							'max_height' => '',
+      							'max_size' => '',
+      							'mime_types' => '',
+      						),
+      						array(
+      							'key' => 'field_5cabcece0f01d',
+      							'label' => 'Text Logo',
+      							'name' => 'text_logo',
+      							'type' => 'image',
+      							'instructions' => '',
+      							'required' => 1,
+      							'conditional_logic' => 0,
+      							'wrapper' => array(
+      								'width' => '',
+      								'class' => '',
+      								'id' => '',
+      							),
+      							'return_format' => 'url',
+      							'preview_size' => 'thumbnail',
+      							'library' => 'all',
+      							'min_width' => '',
+      							'min_height' => '',
+      							'min_size' => '',
+      							'max_width' => '',
+      							'max_height' => '',
+      							'max_size' => '',
+      							'mime_types' => '',
+      						),
+      					),
+      				),
+      				array(
+      					'key' => 'field_5cabcef90f01e',
+      					'label' => 'Certifications',
+      					'name' => 'certifications',
+      					'type' => 'repeater',
+      					'instructions' => '',
+      					'required' => 0,
+      					'conditional_logic' => 0,
+      					'wrapper' => array(
+      						'width' => '',
+      						'class' => '',
+      						'id' => '',
+      					),
+      					'collapsed' => '',
+      					'min' => 0,
+      					'max' => 0,
+      					'layout' => 'table',
+      					'button_label' => '',
+      					'sub_fields' => array(
+      						array(
+      							'key' => 'field_5cabcf2d0f01f',
+      							'label' => 'Logo',
+      							'name' => 'logo',
+      							'type' => 'image',
+      							'instructions' => '',
+      							'required' => 1,
+      							'conditional_logic' => 0,
+      							'wrapper' => array(
+      								'width' => '',
+      								'class' => '',
+      								'id' => '',
+      							),
+      							'return_format' => 'url',
+      							'preview_size' => 'thumbnail',
+      							'library' => 'all',
+      							'min_width' => '',
+      							'min_height' => '',
+      							'min_size' => '',
+      							'max_width' => '',
+      							'max_height' => '',
+      							'max_size' => '',
+      							'mime_types' => '',
+      						),
+      					),
+      				),
+      			),
+      		),
+      	),
+      	'location' => array(
+      		array(
+      			array(
+      				'param' => 'options_page',
+      				'operator' => '==',
+      				'value' => 'acf-options',
+      			),
+      		),
+      	),
+      	'menu_order' => 0,
+      	'position' => 'normal',
+      	'style' => 'default',
+      	'label_placement' => 'top',
+      	'instruction_placement' => 'label',
+      	'hide_on_screen' => '',
+      	'active' => 1,
+      	'description' => '',
+      ));
+
 
       endif;
   }
