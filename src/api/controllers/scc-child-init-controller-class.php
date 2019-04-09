@@ -3,6 +3,8 @@
 require_once( get_template_directory() . '/api/responses/torque-api-responses-class.php');
 require_once( get_template_directory() . '/includes/validation/torque-validation-class.php');
 
+require_once( SCC_API_ROOT . 'controllers/helpers/scc-child-controller-helpers-class.php');
+
 class SCC_Init_Controller {
 
 	public static function get_init_args() {
@@ -39,7 +41,7 @@ class SCC_Init_Controller {
 		$page_ids = $this->get_primary_menu_page_ids();
 		if (!count($page_ids)) { return false; }
 
-		$data['pages'] = $this->get_pages_data( $page_ids );
+		$data['pages'] = $this->get_init_pages( $page_ids );
 		$data['logos'] = $this->get_logos();
 
 		return $data;
@@ -61,31 +63,8 @@ class SCC_Init_Controller {
 		return $page_ids;
 	}
 
-	private function get_pages_data( array $page_ids ) {
-		return array_map( function( $page_id ) {
-
-			$page = get_post( $page_id, ARRAY_A, 'display' );
-
-			// add meta fields
-			$page['colors'] = get_field('colors', $page_id);
-			$page['icons'] = get_field('icons', $page_id);
-
-			// just keep the fields we want - reduces response size
-			$keep_keys = array (
-				'ID',
-				'post_title',
-				'post_name',
-				'icons',
-				'colors'
-			);
-			$filtered_page = array();
-			foreach ($keep_keys as $key) {
-				$filtered_page[$key] = $page[$key];
-			}
-
-			return $filtered_page;
-
-		}, $page_ids );
+	private function get_init_pages( array $page_ids ) {
+		return SCC_Controller_Helpers::get_pages_data( $page_ids );
 	}
 
 	private function get_logos() {
