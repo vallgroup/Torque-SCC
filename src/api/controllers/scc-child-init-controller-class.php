@@ -18,19 +18,77 @@ class SCC_Init_Controller {
 
 	public function get_init() {
 		try {
+			$data = $this->get_init_data();
 
-			if (true) {
+			if ($data) {
         return Torque_API_Responses::Success_Response( array(
-          'data'	=> 'worked'
+          'data'	=> $data
         ) );
 			}
 
-			return Torque_API_Responses::Failure_Response( array(
-				''	=> ''
-			));
+			return Torque_API_Responses::Failure_Response( array());
 
 		} catch (Exception $e) {
 			return Torque_API_Responses::Error_Response( $e );
 		}
+	}
+
+	private function get_init_data() {
+		$data = array();
+
+		$page_ids = $this->get_primary_menu_page_ids();
+		if (!count($page_ids)) { return false; }
+
+		$data['pages'] = $this->get_pages_data( $page_ids );
+		$data['logos'] = $this->get_logos();
+
+		return $data;
+	}
+
+	private function get_primary_menu_page_ids(): array {
+		$menu = wp_get_nav_menu_items( 2 ); // primary
+
+		$filtered_menu = array_filter( $menu, function($item) { // keep only page nav menu item types
+			return $item->object === 'page';
+		} );
+
+		$sliced_menu = array_slice( $filtered_menu, 0, 5 ); // keep only the first 5 items
+
+		$page_ids = array_map( function($item) { // keep only ids
+			return $item->object_id;
+		}, $sliced_menu );
+
+		return $page_ids;
+	}
+
+	private function get_pages_data( array $page_ids ) {
+		return array_map( function( $page_id ) {
+
+			$page = get_post( $page_id, ARRAY_A, 'display' );
+
+			// add meta fields
+			$page['colors'] = get_field('colors', $page_id);
+			$page['icons'] = get_field('icons', $page_id);
+
+			// just keep the fields we want - reduces response size
+			$keep_keys = array (
+				'ID',
+				'post_title',
+				'post_name',
+				'icons',
+				'colors'
+			);
+			$filtered_page = array();
+			foreach ($keep_keys as $key) {
+				$filtered_page[$key] = $page[$key];
+			}
+
+			return $filtered_page;
+
+		}, $page_ids );
+	}
+
+	private function get_logos() {
+		return get_field('logos', 'option');
 	}
 }
