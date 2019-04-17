@@ -53,15 +53,37 @@ class SCC_Page_Controller {
 		switch($page['type']) {
 			case 'tabbed':
 				$page['tabs'] = get_field( 'tabs', $page['ID'] );
+
+				foreach ($page['tabs'] as &$tab) {
+					foreach ($tab['images'] as &$images_field) {
+						$this->slim_image_object( $images_field['image'] );
+					}
+				}
+
 				break;
 
 			case 'single':
 				$page['content'] = get_field( 'content', $page['ID'] );
 				$page['images'] = get_field( 'images', $page['ID'] );
+
+				foreach ($page['images'] as &$images_field) {
+					$this->slim_image_object( $images_field['image'] );
+				}
+
 				break;
 		}
 
 
 		return $page;
+	}
+
+	private function slim_image_object( array &$image ) {
+		if (! $image || ! count($image)) return $image;
+
+		$keep_keys = array(
+			'url',
+			'caption'
+		);
+		$image = SCC_Controller_Helpers::keep_keys( $keep_keys, $image );
 	}
 }
