@@ -61,6 +61,11 @@ add_filter('upload_mimes', function($mimes) {
    //remove_menu_page( 'tools.php' );                  //Tools
    //remove_menu_page( 'options-general.php' );        //Settings
 
+
+   if ( class_exists('Torque_Map') ) {
+     remove_menu_page( 'edit.php?post_type=torque_map' );
+   }
+
  }
  add_action( 'admin_menu', 'torque_remove_menus' );
 
