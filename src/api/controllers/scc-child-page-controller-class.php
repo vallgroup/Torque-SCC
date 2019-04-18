@@ -62,6 +62,19 @@ class SCC_Page_Controller {
 
 				break;
 
+			case 'map':
+				$page['map_tabs'] = get_field( 'map_tabs', $page['ID'] );
+
+				foreach ($page['map_tabs'] as &$tab) {
+					if ($tab['type'] === 'images') {
+						foreach ($tab['images'] as &$images_field) {
+							$this->slim_image_object( $images_field['image'] );
+						}
+					}
+				}
+
+				break;
+
 			case 'single':
 				$page['content'] = get_field( 'content', $page['ID'] );
 				$page['images'] = get_field( 'images', $page['ID'] );
@@ -71,6 +84,8 @@ class SCC_Page_Controller {
 				}
 
 				break;
+
+
 		}
 
 
