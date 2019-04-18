@@ -64,6 +64,7 @@ class SCC_Page_Controller {
 
 			case 'map':
 				$page['tabs'] = get_field( 'map_tabs', $page['ID'] );
+				$page['map_settings'] = get_field( 'map_settings', $page['ID'] );
 
 				foreach ($page['tabs'] as &$tab) {
 					if ($tab['type'] === 'images') {
